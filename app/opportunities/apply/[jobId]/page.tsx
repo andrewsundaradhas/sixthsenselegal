@@ -6,7 +6,7 @@ import { Button3D } from "@/components/button-3d"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Upload, ArrowLeft } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { jobPositions } from "@/lib/job-data"
 import Link from "next/link"
 
@@ -32,7 +32,7 @@ export default function ApplicationPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <Link href="/opportunities">
-                  <Button3D variant="outline" size="sm">
+                  <Button3D>
                     <ArrowLeft className="h-4 w-4 mr-2" /> Back
                   </Button3D>
                 </Link>
@@ -83,21 +83,6 @@ export default function ApplicationPage() {
                 <div className="form-field-focus">
                   <label htmlFor="coverLetter" className="block mb-1">Cover Letter</label>
                   <Textarea id="coverLetter" name="coverLetter" placeholder="Tell us why you're a good fit." className="min-h-[150px]" />
-                </div>
-                <div className="form-field-focus">
-                  <label htmlFor="resume" className="block mb-1">Resume/CV (PDF or DOCX, max 5 MB)</label>
-                  <div className="flex items-center justify-center w-full">
-                    <label htmlFor="resume" className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer border-border bg-black/50 hover:bg-black/80 hover:border-red-600/50 transition-all duration-300">
-                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <Upload className="w-12 h-12 mb-4 text-muted-foreground" />
-                        <p className="mb-2 text-lg text-muted-foreground">
-                          <span className="font-medium text-white">Click to upload</span> or drag & drop
-                        </p>
-                        <p className="text-sm text-muted-foreground mb-2">PDF or DOCX (MAX 5 MB)</p>
-                      </div>
-                      <input id="resume" name="resume" type="file" className="hidden" accept=".pdf,.doc,.docx" />
-                    </label>
-                  </div>
                 </div>
                 <Button3D type="submit" className="w-full" disabled={submitted}>
                   {submitted ? "Submitted" : "Submit Application"}
