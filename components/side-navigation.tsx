@@ -69,18 +69,9 @@ export default function SideNavigation() {
         <div className="flex flex-col h-full">
           <div className="p-6">
             <Link href="/">
-              <div className="flex flex-col items-center">
-                <img
-                  src="/images/logo.png"
-                  alt="SIXTH SENSE LEGAL"
-                  className="h-40 w-auto"
-                  onError={(e) => {
-                    console.error("Logo failed to load")
-                    e.currentTarget.src =
-                      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-05-18%20152522-jjpwpyWNl7X2ScR1n6iOQeSJLteReI.png"
-                  }}
-                />
-                <p className="font-panara text-sm text-white mt-2">Making Law, Make Sense</p>
+              <div className="branding">
+                <img src="/images/logo.png" alt="SIXTH SENSE LEGAL" />
+                <span>SIXTH SENSE LEGAL</span>
               </div>
             </Link>
           </div>

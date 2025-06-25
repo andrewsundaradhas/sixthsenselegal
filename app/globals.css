@@ -247,3 +247,18 @@
   width: 100%;
   overflow: hidden;
 }
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+.branding img {
+  height: 24px;
+  width: auto;
+}
