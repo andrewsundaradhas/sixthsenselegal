@@ -4,7 +4,7 @@
 
 import { createServerSupabaseClient } from "@/lib/supabase"
 import { z } from "zod"
-import nodemailer from "nodemailer"
+// import nodemailer from "nodemailer"
 import { jobPositions } from "@/lib/job-data"
 
 const baseApplicationSchema = z.object({
@@ -87,9 +87,9 @@ export async function submitJobApplication(formData: FormData) {
     }
 
     // Send email notification (non-blocking)
-    sendJobApplicationEmail(validatedBaseData, job, specificAnswers, resumeFile).catch((e) =>
-      console.error("Job application email notification failed:", e),
-    )
+    // sendJobApplicationEmail(validatedBaseData, job, specificAnswers, resumeFile).catch((e) =>
+    //   console.error("Job application email notification failed:", e),
+    // )
 
     return {
       success: true,
@@ -101,76 +101,76 @@ export async function submitJobApplication(formData: FormData) {
   }
 }
 
-async function sendJobApplicationEmail(
-  data: z.infer<typeof baseApplicationSchema>,
-  job: any,
-  specificAnswers: Record<string, string>,
-  resumeFile?: File,
-) {
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-    console.warn("EMAIL_USER or EMAIL_PASSWORD environment variables are not set. Email will not be sent.")
-    return
-  }
+// async function sendJobApplicationEmail(
+//   data: z.infer<typeof baseApplicationSchema>,
+//   job: any,
+//   specificAnswers: Record<string, string>,
+//   resumeFile?: File,
+// ) {
+//   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+//     console.warn("EMAIL_USER or EMAIL_PASSWORD environment variables are not set. Email will not be sent.")
+//     return
+//   }
 
-  try {
-    // Create a transporter
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    })
+//   try {
+//     // Create a transporter
+//     const transporter = nodemailer.createTransport({
+//       service: "gmail",
+//       auth: {
+//         user: process.env.EMAIL_USER,
+//         pass: process.env.EMAIL_PASSWORD,
+//       },
+//     })
 
-    // Format specific answers for email
-    let specificAnswersHtml = ""
-    if (job.specificQuestions) {
-      specificAnswersHtml = job.specificQuestions
-        .map((question) => {
-          return `<p><strong>${question.label}:</strong> ${specificAnswers[question.id] || "Not provided"}</p>`
-        })
-        .join("")
-    }
+//     // Format specific answers for email
+//     let specificAnswersHtml = ""
+//     if (job.specificQuestions) {
+//       specificAnswersHtml = job.specificQuestions
+//         .map((question) => {
+//           return `<p><strong>${question.label}:</strong> ${specificAnswers[question.id] || "Not provided"}</p>`
+//         })
+//         .join("")
+//     }
 
-    // Prepare email attachments
-    const attachments = []
+//     // Prepare email attachments
+//     const attachments = []
 
-    if (resumeFile && resumeFile.name && resumeFile.size > 0) {
-      const buffer = Buffer.from(await resumeFile.arrayBuffer())
-      attachments.push({
-        filename: resumeFile.name,
-        content: buffer,
-      })
-    }
+//     if (resumeFile && resumeFile.name && resumeFile.size > 0) {
+//       const buffer = Buffer.from(await resumeFile.arrayBuffer())
+//       attachments.push({
+//         filename: resumeFile.name,
+//         content: buffer,
+//       })
+//     }
 
-    // Email content
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: "help.sixthsenselegal@gmail.com", // Updated recipient email
-      subject: `New Job Application: ${job.title} - ${data.fullName}`,
-      html: `
-        <h2>New Job Application</h2>
-        <p><strong>Position:</strong> ${job.title}</p>
-        <p><strong>Name:</strong> ${data.fullName}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Phone:</strong> ${data.phone}</p>
-        <h3>Experience</h3>
-        <p>${data.experience}</p>
-        <h3>Education</h3>
-        <p>${data.education}</p>
-        ${data.coverLetter ? `<h3>Cover Letter</h3><p>${data.coverLetter}</p>` : ""}
-        ${specificAnswersHtml ? `<h3>Position-Specific Questions</h3>${specificAnswersHtml}` : ""}
-        ${resumeFile && resumeFile.name ? `<p><strong>Resume:</strong> Attached (${resumeFile.name})</p>` : "<p><strong>Resume:</strong> Not provided</p>"}
-        <p><strong>Status:</strong> ${data.status}</p>
-      `,
-      attachments: attachments,
-    }
+//     // Email content
+//     const mailOptions = {
+//       from: process.env.EMAIL_USER,
+//       to: "help.sixthsenselegal@gmail.com", // Updated recipient email
+//       subject: `New Job Application: ${job.title} - ${data.fullName}`,
+//       html: `
+//         <h2>New Job Application</h2>
+//         <p><strong>Position:</strong> ${job.title}</p>
+//         <p><strong>Name:</strong> ${data.fullName}</p>
+//         <p><strong>Email:</strong> ${data.email}</p>
+//         <p><strong>Phone:</strong> ${data.phone}</p>
+//         <h3>Experience</h3>
+//         <p>${data.experience}</p>
+//         <h3>Education</h3>
+//         <p>${data.education}</p>
+//         ${data.coverLetter ? `<h3>Cover Letter</h3><p>${data.coverLetter}</p>` : ""}
+//         ${specificAnswersHtml ? `<h3>Position-Specific Questions</h3>${specificAnswersHtml}` : ""}
+//         ${resumeFile && resumeFile.name ? `<p><strong>Resume:</strong> Attached (${resumeFile.name})</p>` : "<p><strong>Resume:</strong> Not provided</p>"}
+//         <p><strong>Status:</strong> ${data.status}</p>
+//       `,
+//       attachments: attachments,
+//     }
 
-    // Send email
-    await transporter.sendMail(mailOptions)
-  } catch (error) {
-    console.error("Error sending email:", error)
-    // We don't throw here to prevent the entire function from failing
-    // The application is still saved in the database
-  }
-}
+//     // Send email
+//     await transporter.sendMail(mailOptions)
+//   } catch (error) {
+//     console.error("Error sending email:", error)
+//     // We don't throw here to prevent the entire function from failing
+//     // The application is still saved in the database
+//   }
+// }

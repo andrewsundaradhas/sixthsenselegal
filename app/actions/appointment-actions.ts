@@ -4,7 +4,7 @@
 
 import { createServerSupabaseClient } from "@/lib/supabase"
 import { z } from "zod"
-import nodemailer from "nodemailer"
+// import nodemailer from "nodemailer"
 
 const appointmentSchema = z.object({
   name: z.string().min(2),
@@ -72,7 +72,7 @@ export async function submitAppointment(formData: FormData) {
   }
 
   // ── 3. Fire-and-forget notification email (non-blocking) ───────────────────
-  sendAppointmentEmail(data).catch((e) => console.error("E-mail notification failed:", e))
+  // sendAppointmentEmail(data).catch((e) => console.error("E-mail notification failed:", e))
 
   return {
     success: true,
@@ -81,34 +81,34 @@ export async function submitAppointment(formData: FormData) {
 }
 
 // helper – runs after DB save
-async function sendAppointmentEmail(data: z.infer<typeof appointmentSchema>) {
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-    console.warn("EMAIL_USER or EMAIL_PASSWORD environment variables are not set. Email will not be sent.")
-    return
-  }
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-  })
-
-  await transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: "help.sixthsenselegal@gmail.com",
-    subject: `New Appointment Request – ${data.name}`,
-    html: `
-      <h2>New Appointment Request</h2>
-      <p><strong>Name:</strong> ${data.name}</p>
-      <p><strong>Email:</strong> ${data.email}</p>
-      <p><strong>Phone:</strong> ${data.phone}</p>
-      <p><strong>Service Type:</strong> ${data.serviceType}</p>
-      <p><strong>Preferred Date:</strong> ${data.date}</p>
-      <p><strong>Preferred Time:</strong> ${data.time}</p>
-      <p><strong>Message:</strong> ${data.message || "—"}</p>
-      <p><strong>Status:</strong> ${data.status}</p>
-    `,
-  })
-}
+// async function sendAppointmentEmail(data: z.infer<typeof appointmentSchema>) {
+//   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+//     console.warn("EMAIL_USER or EMAIL_PASSWORD environment variables are not set. Email will not be sent.")
+//     return
+//   }
+//
+//   const transporter = nodemailer.createTransport({
+//     service: "gmail",
+//     auth: {
+//       user: process.env.EMAIL_USER,
+//       pass: process.env.EMAIL_PASSWORD,
+//     },
+//   })
+//
+//   await transporter.sendMail({
+//     from: process.env.EMAIL_USER,
+//     to: "help.sixthsenselegal@gmail.com",
+//     subject: `New Appointment Request – ${data.name}`,
+//     html: `
+//       <h2>New Appointment Request</h2>
+//       <p><strong>Name:</strong> ${data.name}</p>
+//       <p><strong>Email:</strong> ${data.email}</p>
+//       <p><strong>Phone:</strong> ${data.phone}</p>
+//       <p><strong>Service Type:</strong> ${data.serviceType}</p>
+//       <p><strong>Preferred Date:</strong> ${data.date}</p>
+//       <p><strong>Preferred Time:</strong> ${data.time}</p>
+//       <p><strong>Message:</strong> ${data.message || "—"}</p>
+//       <p><strong>Status:</strong> ${data.status}</p>
+//     `,
+//   })
+// }
