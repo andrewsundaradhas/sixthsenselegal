@@ -41,7 +41,7 @@ export default function Home() {
           </div>
 
           <AnimatedMotto
-            text="Making Law, Make Sense"
+            text="Making Law Make Sense"
             className="font-panara text-xl md:text-2xl text-white mb-16 inline-block"
           />
 

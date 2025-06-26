@@ -107,7 +107,7 @@ function Hexagon({ title, value, icon, index }: HexagonProps) {
 export default function WhyChooseUs() {
   return (
     <div className="w-full py-12">
-      <h2 className="font-panara font-bold text-white text-2xl md:text-3xl mb-12 text-center">Why Choose Us</h2>
+      <h2 className="font-panara font-bold text-white text-2xl md:text-3xl mb-12 text-center">Our Approach</h2>
 
       <div className="flex flex-wrap justify-center gap-8">
         {hexagonItems.map((item) => (

@@ -11,6 +11,7 @@ interface AnimatedMottoProps {
 
 export default function AnimatedMotto({ text, className = "", animationType = "typewriter" }: AnimatedMottoProps) {
   const [displayText, setDisplayText] = useState("")
+  const [showCursor, setShowCursor] = useState(true)
 
   useEffect(() => {
     if (animationType === "typewriter") {
@@ -20,6 +21,7 @@ export default function AnimatedMotto({ text, className = "", animationType = "t
         index++
         if (index > text.length) {
           clearInterval(timer)
+          setShowCursor(false) // Hide cursor at the end
         }
       }, 100)
 
@@ -41,6 +43,11 @@ export default function AnimatedMotto({ text, className = "", animationType = "t
   }
 
   return (
-    <p className={`${className} ${displayText.length > 0 ? "animate-typewriter" : ""}`}>{displayText || "\u00A0"}</p>
+    <span className={className} style={{ whiteSpace: "nowrap" }}>
+      {displayText || "\u00A0"}
+      {showCursor && displayText.length < text.length && (
+        <span className="typewriter-cursor">|</span>
+      )}
+    </span>
   )
 }

@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useMemo, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import gsap from "gsap"
@@ -15,56 +15,68 @@ interface ExpertiseNode {
   distance: number
 }
 
-// Updated expertiseData with new branches and recalculated angles for even distribution
-const expertiseData: ExpertiseNode[] = [
-  { id: "cbi", label: "CBI", angle: 0, distance: 200 },
-  {
-    id: "ed",
-    label: "ED",
-    angle: 30,
-    distance: 200,
-    children: [
-      { id: "fema", label: "FEMA", angle: 20, distance: 300 },
-      { id: "pmla", label: "PMLA", angle: 40, distance: 300 },
-    ],
-  },
-  { id: "feoa", label: "FEOA", angle: 60, distance: 200 }, // New branch
-  { id: "customs", label: "Customs", angle: 90, distance: 200 },
-  { id: "cbic", label: "CBIC", angle: 120, distance: 200 },
-  { id: "eow", label: "EOW", angle: 150, distance: 200 }, // New branch
-  {
-    id: "tax",
-    label: "Tax Matters",
-    angle: 180,
-    distance: 200,
-    children: [
-      { id: "income-tax", label: "Income Tax", angle: 170, distance: 300 },
-      { id: "gst", label: "GST", angle: 190, distance: 300 },
-    ],
-  },
-  { id: "cofeposa", label: "COFEPOSA", angle: 210, distance: 200 }, // New branch
-  {
-    id: "ibc",
-    label: "IBC",
-    angle: 240,
-    distance: 200,
-    children: [
-      { id: "nclt", label: "NCLT", angle: 230, distance: 300 },
-      { id: "nclat", label: "NCLAT", angle: 250, distance: 300 },
-    ],
-  },
-  { id: "tnpid", label: "TNPID", angle: 270, distance: 200 }, // New branch
-  { id: "drt", label: "DRT", angle: 300, distance: 200 },
-  { id: "cci", label: "CCI", angle: 330, distance: 200 }, // New branch
-]
+const branchLabels = [
+  { id: "tnpid", label: "TNPID" },
+  { id: "drt", label: "DRT" },
+  { id: "cci", label: "CCI" },
+  { id: "cbi", label: "CBI" },
+  { id: "ed", label: "ED", children: [
+    { id: "fema", label: "FEMA", angle: 20, distance: 120 },
+    { id: "pmla", label: "PMLA", angle: 30, distance: 120 },
+    { id: "feoa", label: "FEOA", angle: 40, distance: 120 },
+  ] },
+  { id: "customs", label: "Customs" },
+  { id: "cbic", label: "CBIC" },
+  { id: "eow", label: "EOW" },
+  { id: "tax", label: "Tax Matters", children: [
+    { id: "income-tax", label: "Income Tax", angle: 140, distance: 120 },
+    { id: "gst", label: "GST", angle: 160, distance: 120 },
+  ] },
+  { id: "cofeposa", label: "COFEPOSA" },
+  { id: "ibc", label: "IBC", children: [
+    { id: "nclt", label: "NCLT", angle: 200, distance: 120 },
+    { id: "nclat", label: "NCLAT", angle: 220, distance: 120 },
+  ] },
+];
 
-export default function ExpertiseVisualization() {
+function getResponsiveRadius() {
+  if (typeof window !== "undefined") {
+    if (window.innerWidth < 640) return 100;
+    if (window.innerWidth < 1024) return 130;
+  }
+  return 170;
+}
+
+const useExpertiseData = () => {
+  const [radius, setRadius] = useState(getResponsiveRadius());
+  // Responsive radius on resize
+  useEffect(() => {
+    const handleResize = () => setRadius(getResponsiveRadius());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const n = branchLabels.length;
+  return useMemo(() =>
+    branchLabels.map((branch, i) => {
+      const angle = ((2 * Math.PI) / n) * i - Math.PI / 2;
+      return {
+        ...branch,
+        angle: (angle * 180) / Math.PI, // convert to degrees for existing code
+        distance: radius,
+      };
+    }), [radius]);
+};
+
+export default function ExpertiseVisualization({ className = "" }: { className?: string }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [expandedNodes, setExpandedNodes] = useState<string[]>([])
   const [hoveredNode, setHoveredNode] = useState<string | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const particlesRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
+
+  const expertiseData = useExpertiseData();
 
   const handleMainBubbleClick = () => {
     if (!isExpanded) {
@@ -236,7 +248,7 @@ export default function ExpertiseVisualization() {
   }
 
   return (
-    <div ref={containerRef} className="relative w-full bubble-container">
+    <div ref={containerRef} className={cn("relative w-full bubble-container", className)}>
       <div className="h-[600px] sm:h-[700px] flex items-center justify-center min-w-[800px]">
         <div ref={particlesRef} className="absolute inset-0 pointer-events-none z-20"></div>
 
