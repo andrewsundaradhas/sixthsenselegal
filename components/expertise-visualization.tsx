@@ -41,10 +41,11 @@ const branchLabels = [
 
 function getResponsiveRadius() {
   if (typeof window !== "undefined") {
-    if (window.innerWidth < 640) return 100;
-    if (window.innerWidth < 1024) return 130;
+    if (window.innerWidth < 640) return 80; // Mobile
+    if (window.innerWidth < 768) return 100; // Small tablet
+    if (window.innerWidth < 1024) return 130; // Tablet
   }
-  return 170;
+  return 170; // Desktop
 }
 
 const useExpertiseData = () => {
@@ -249,7 +250,7 @@ export default function ExpertiseVisualization({ className = "" }: { className?:
 
   return (
     <div ref={containerRef} className={cn("relative w-full bubble-container", className)}>
-      <div className="h-[600px] sm:h-[700px] flex items-center justify-center min-w-[800px]">
+      <div className="h-[500px] sm:h-[600px] md:h-[700px] flex items-center justify-center w-full">
         <div ref={particlesRef} className="absolute inset-0 pointer-events-none z-20"></div>
 
         {/* SVG for curved connections */}
@@ -303,13 +304,13 @@ export default function ExpertiseVisualization({ className = "" }: { className?:
         </svg>
 
         <motion.div
-          className="absolute w-[140px] h-[140px] sm:w-[170px] sm:h-[170px] bg-red-600 rounded-full flex items-center justify-center cursor-pointer z-30 shadow-[0_0_30px_rgba(220,38,38,0.4)]"
+          className="absolute w-[120px] h-[120px] sm:w-[140px] sm:h-[140px] md:w-[170px] md:h-[170px] bg-red-600 rounded-full flex items-center justify-center cursor-pointer z-30 shadow-[0_0_30px_rgba(220,38,38,0.4)]"
           animate={{ scale: isExpanded ? 0.8 : 1 }}
           onClick={handleMainBubbleClick}
           whileHover={{ scale: isExpanded ? 0.85 : 1.05 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
-          <h3 className="font-daydream text-white text-xs sm:text-sm text-center leading-tight px-4">
+          <h3 className="font-daydream text-white text-xs sm:text-sm text-center leading-tight px-2 sm:px-4">
             SIXTH SENSE LEGAL
           </h3>
         </motion.div>
@@ -320,9 +321,9 @@ export default function ExpertiseVisualization({ className = "" }: { className?:
               const position = getPosition(node.angle, node.distance)
               const hasChildren = node.children && node.children.length > 0
 
-              // Calculate responsive size based on label length
-              // Increased minimum node size to 90px for more space
-              const nodeSize = Math.max(90, Math.min(120, node.label.length * 10))
+              // Calculate responsive size based on label length and screen size
+              const baseSize = typeof window !== "undefined" && window.innerWidth < 640 ? 80 : 90
+              const nodeSize = Math.max(baseSize, Math.min(120, node.label.length * 10))
               // Labels with 7 or more characters will use 'xs' font size
               const fontSize = node.label.length >= 7 ? "xs" : "sm"
 

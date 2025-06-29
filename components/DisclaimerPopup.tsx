@@ -49,7 +49,7 @@ const DisclaimerPopup: React.FC<DisclaimerPopupProps> = ({ onAgree, onDisagree }
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center disclaimer-popup font-panara"
+      className="fixed inset-0 z-[9999] flex items-center justify-center disclaimer-popup font-panara p-4 sm:p-6"
       aria-modal="true"
       role="dialog"
       tabIndex={-1}
@@ -60,9 +60,9 @@ const DisclaimerPopup: React.FC<DisclaimerPopupProps> = ({ onAgree, onDisagree }
         aria-hidden="true"
       />
       {/* Modal */}
-      <div className="relative z-10 max-w-md w-full mx-4 bg-white rounded-xl border border-neutral-200 p-10 flex flex-col items-center animate-fade-in shadow-lg">
-        <h2 className="text-lg sm:text-xl font-light uppercase tracking-widest text-neutral-900 mb-6 text-center">Disclaimer</h2>
-        <ul className="text-neutral-700 text-base font-normal leading-relaxed space-y-3 mb-8 list-disc list-inside">
+      <div className="relative z-10 w-full max-w-sm sm:max-w-md bg-white rounded-xl border border-neutral-200 p-6 sm:p-8 md:p-10 flex flex-col items-center animate-fade-in shadow-lg">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-light uppercase tracking-widest text-neutral-900 mb-4 sm:mb-6 text-center">Disclaimer</h2>
+        <ul className="text-neutral-700 text-sm sm:text-base font-normal leading-relaxed space-y-2 sm:space-y-3 mb-6 sm:mb-8 list-disc list-inside text-left w-full">
           <li>No solicitation or legal advice is provided on this website.</li>
           <li>Accessing this site does not create an attorney-client relationship.</li>
           <li>All content is for informational purposes only and is the intellectual property of the firm.</li>
@@ -78,17 +78,17 @@ const DisclaimerPopup: React.FC<DisclaimerPopupProps> = ({ onAgree, onDisagree }
             .
           </li>
         </ul>
-        <div className="flex w-full gap-4 mt-2">
+        <div className="flex w-full gap-3 sm:gap-4 mt-2">
           <button
             ref={agreeButtonRef}
             onClick={onAgree}
-            className="flex-1 py-3 rounded-md bg-red-600 text-white font-normal shadow-none border-none transition-all duration-200 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+            className="flex-1 py-2.5 sm:py-3 rounded-md bg-red-600 text-white font-normal shadow-none border-none transition-all duration-200 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 text-sm sm:text-base"
           >
             Agree
           </button>
           <button
             onClick={onDisagree}
-            className="flex-1 py-3 rounded-md bg-white text-red-600 border border-red-300 font-normal shadow-none transition-all duration-200 hover:bg-red-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+            className="flex-1 py-2.5 sm:py-3 rounded-md bg-white text-red-600 border border-red-300 font-normal shadow-none transition-all duration-200 hover:bg-red-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 text-sm sm:text-base"
           >
             Disagree
           </button>

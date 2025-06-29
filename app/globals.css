@@ -213,10 +213,10 @@
   transition: opacity 300ms;
 }
 
-/* Bubble container for horizontal scrolling */
+/* Bubble container for mobile-optimized layout */
 .bubble-container {
-  overflow-x: auto;
-  white-space: nowrap;
+  overflow: hidden;
+  white-space: normal;
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
   scrollbar-width: thin; /* For Firefox */
   scrollbar-color: rgba(220, 38, 38, 0.5) rgba(0, 0, 0, 0.1); /* For Firefox */
@@ -242,4 +242,21 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+}
+
+/* Mobile-specific expertise container */
+@media (max-width: 767px) {
+  .expertise-container {
+    overflow: visible;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .bubble-container {
+    overflow: visible;
+    width: 100%;
+    max-width: 100vw;
+  }
 }
