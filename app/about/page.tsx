@@ -2,11 +2,10 @@
 
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import Timeline from "@/components/timeline"
+import Timeline, { type TimelineItem } from "@/components/timeline"
 import ExpertiseVisualization from "@/components/expertise-visualization"
-import WhyChooseUs from "@/components/why-choose-us"
 
-const timelineItems = [
+const timelineItems: TimelineItem[] = [
   {
     year: "2015",
     title: "Firm Established",
@@ -43,9 +42,6 @@ export default function AboutPage() {
   const expertiseRef = useRef<HTMLDivElement>(null)
   const isExpertiseInView = useInView(expertiseRef, { once: true, amount: 0.3 })
 
-  const whyChooseUsRef = useRef<HTMLDivElement>(null)
-  const isWhyChooseUsInView = useInView(whyChooseUsRef, { once: true, amount: 0.3 })
-
   return (
     <div className="min-h-screen">
       {/* About Us Header */}
@@ -63,46 +59,75 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* Timeline Section */}
+      {/* Expertise Visualization - mobile only, before timeline */}
+      <section className="block md:hidden py-10 px-0 section-spacing">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+          <h2 className="font-panara font-bold text-white text-2xl mb-6 text-center">Our Expertise</h2>
+          <p className="font-panara text-center text-muted-foreground mb-6 max-w-3xl mx-auto text-base px-4">
+            Click on the central bubble to explore our areas of expertise. Each practice area represents our specialized
+            knowledge and experience in providing exceptional legal services.
+          </p>
+          <div className="overflow-x-auto -mx-4 px-4">
+            <div className="min-w-[800px] flex justify-center">
+              <ExpertiseVisualization />
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Timeline Section - mobile below expertise, desktop as usual */}
       <section className="py-20 px-4 md:px-8 lg:px-12 section-spacing bg-gradient-to-b from-black to-[#0A0A0A]">
         <h2 className="font-panara font-bold text-white text-2xl md:text-3xl mb-16 text-center">Our Journey</h2>
-
         <div className="max-w-5xl mx-auto">
           <Timeline items={timelineItems} />
         </div>
       </section>
 
-      {/* Expertise Visualization Section */}
-      <section ref={expertiseRef} className="py-20 px-4 md:px-8 lg:px-12 section-spacing">
+      {/* Expertise Visualization - desktop only, after timeline */}
+      <section ref={expertiseRef} className="hidden md:block py-20 px-4 md:px-8 lg:px-12 section-spacing">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isExpertiseInView ? 1 : 0, y: isExpertiseInView ? 0 : 20 }}
           transition={{ duration: 0.8 }}
         >
           <h2 className="font-panara font-bold text-white text-2xl md:text-3xl mb-8 text-center">Our Expertise</h2>
-
           <p className="font-panara text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
             Click on the central bubble to explore our areas of expertise. Each practice area represents our specialized
             knowledge and experience in providing exceptional legal services.
           </p>
-
           <div className="expertise-container">
             <ExpertiseVisualization />
           </div>
         </motion.div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section
-        ref={whyChooseUsRef}
-        className="py-20 px-4 md:px-8 lg:px-12 section-spacing bg-gradient-to-b from-black to-[#0A0A0A]"
-      >
+      {/* Our Approach Section */}
+      <section className="py-20 px-4 md:px-8 lg:px-12 section-spacing bg-gradient-to-b from-black to-[#0A0A0A]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isWhyChooseUsInView ? 1 : 0, y: isWhyChooseUsInView ? 0 : 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <WhyChooseUs />
+          <h2 className="font-panara font-bold text-white text-2xl md:text-3xl mb-8 text-center">Our Approach</h2>
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="font-panara text-lg text-muted-foreground mb-8">
+              At Sixth Sense Legal, our approach is rooted in integrity, expertise, and a deep commitment to our clients. We believe in clear communication, thorough research, and strategic advocacy tailored to each unique case. Our team collaborates closely to ensure every client receives personalized attention and the highest standard of legal service.
+            </p>
+            <ul className="grid grid-cols-1 md:grid-cols-3 gap-8 font-panara text-base text-white">
+              <li className="bg-black/60 rounded-xl p-6 border border-red-600/30 shadow-sm">
+                <span className="block text-red-600 font-semibold mb-2">Client-Centric</span>
+                We prioritize our clients' needs, providing transparent advice and regular updates throughout every stage of the legal process.
+              </li>
+              <li className="bg-black/60 rounded-xl p-6 border border-red-600/30 shadow-sm">
+                <span className="block text-red-600 font-semibold mb-2">Collaborative</span>
+                Our lawyers work as a team, leveraging diverse expertise to develop creative, effective solutions for complex legal challenges.
+              </li>
+              <li className="bg-black/60 rounded-xl p-6 border border-red-600/30 shadow-sm">
+                <span className="block text-red-600 font-semibold mb-2">Ethical & Strategic</span>
+                We uphold the highest ethical standards and pursue every matter with diligence, discretion, and a focus on long-term results.
+              </li>
+            </ul>
+          </div>
         </motion.div>
       </section>
     </div>

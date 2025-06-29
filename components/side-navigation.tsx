@@ -80,7 +80,7 @@ export default function SideNavigation() {
                       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-05-18%20152522-jjpwpyWNl7X2ScR1n6iOQeSJLteReI.png"
                   }}
                 />
-                <p className="font-panara text-sm text-white mt-2">Making Law, Make Sense</p>
+                <p className="font-panara text-sm text-white mt-2">Making Law Make Sense</p>
               </div>
             </Link>
           </div>

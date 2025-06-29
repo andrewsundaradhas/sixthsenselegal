@@ -5,7 +5,7 @@ import { motion, useInView } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Calendar, Award, Briefcase, MapPin, Users } from "lucide-react"
 
-interface TimelineItem {
+export type TimelineItem = {
   year: string
   title: string
   description: string
