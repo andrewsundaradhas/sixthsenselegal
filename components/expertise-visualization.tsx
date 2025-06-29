@@ -41,11 +41,14 @@ const branchLabels = [
 
 function getResponsiveRadius() {
   if (typeof window !== "undefined") {
-    if (window.innerWidth < 640) return 80; // Mobile
-    if (window.innerWidth < 768) return 100; // Small tablet
-    if (window.innerWidth < 1024) return 130; // Tablet
+    const w = window.innerWidth;
+    if (w < 400) return 110; // very small phones
+    if (w < 500) return 125; // small phones
+    if (w < 640) return 140; // standard mobile
+    if (w < 768) return 155; // small tablet
+    if (w < 1024) return 170; // tablet
   }
-  return 170; // Desktop
+  return 200; // desktop
 }
 
 const useExpertiseData = () => {

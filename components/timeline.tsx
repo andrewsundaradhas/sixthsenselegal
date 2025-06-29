@@ -70,7 +70,7 @@ export default function Timeline({ items, className }: TimelineProps) {
             </div>
 
             {/* Year - Mobile */}
-            <div className="absolute left-10 top-[60px] transform -translate-y-1/2 font-panara font-bold text-red-600 text-2xl md:hidden">
+            <div className="absolute left-10 top-[60px] transform -translate-y-1/2 font-panara font-bold text-red-600 text-2xl md:hidden z-20 bg-black px-2 py-0.5 rounded shadow">
               {item.year}
             </div>
 
