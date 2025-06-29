@@ -38,7 +38,7 @@ export default function RootLayout({
       </head>
       <body className={`${montserrat.variable} font-sans bg-black text-white`}>
         <ClientDisclaimerGuard />
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
+        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" enableSystem={false}>
           <div className="flex min-h-screen">
             <SideNavigation />
             <main className="flex-1 overflow-x-hidden">{children}</main>

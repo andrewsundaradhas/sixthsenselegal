@@ -94,8 +94,8 @@ export default function SideNavigation() {
                     className={cn(
                       "font-panara text-lg font-medium block transition-all duration-200 hover-3d",
                       pathname === item.path
-                        ? "text-red-600 border-l-2 border-red-600 pl-3"
-                        : "text-white hover:text-red-600 pl-3",
+                        ? "text-primary border-l-2 border-primary pl-3"
+                        : "text-muted-foreground hover:text-primary pl-3",
                     )}
                   >
                     {item.name}

@@ -307,7 +307,7 @@ export default function ExpertiseVisualization({ className = "" }: { className?:
         </svg>
 
         <motion.div
-          className="absolute w-[120px] h-[120px] sm:w-[140px] sm:h-[140px] md:w-[170px] md:h-[170px] bg-red-600 rounded-full flex items-center justify-center cursor-pointer z-30 shadow-[0_0_30px_rgba(220,38,38,0.4)]"
+          className="absolute w-[120px] h-[120px] sm:w-[140px] sm:h-[140px] md:w-[170px] md:h-[170px] bg-[#e50914] rounded-full flex items-center justify-center cursor-pointer z-30 shadow-[0_0_30px_rgba(220,38,38,0.4)] border-4 border-white"
           animate={{ scale: isExpanded ? 0.8 : 1 }}
           onClick={handleMainBubbleClick}
           whileHover={{ scale: isExpanded ? 0.85 : 1.05 }}
@@ -334,8 +334,7 @@ export default function ExpertiseVisualization({ className = "" }: { className?:
                 <motion.div
                   key={node.id}
                   className={cn(
-                    "absolute bg-black/80 backdrop-blur-sm border-2 rounded-full p-2 sm:p-3 cursor-pointer z-20",
-                    expandedNodes.includes(node.id) ? "border-white" : "border-red-600",
+                    "absolute bg-transparent border-2 border-white rounded-full p-2 sm:p-3 cursor-pointer z-20 text-white",
                     hasChildren ? "cursor-pointer" : "cursor-default",
                   )}
                   initial={{ opacity: 0, x: 0, y: 0 }}
@@ -389,7 +388,7 @@ export default function ExpertiseVisualization({ className = "" }: { className?:
                         return (
                           <motion.div
                             key={child.id}
-                            className="absolute bg-black/80 backdrop-blur-sm border border-white rounded-full p-1 sm:p-2 z-10"
+                            className="absolute bg-transparent border border-white rounded-full p-1 sm:p-2 z-10 text-white"
                             initial={{ opacity: 0, scale: 0.5, x: 0, y: 0 }}
                             animate={{
                               opacity: 1,
