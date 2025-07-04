@@ -31,7 +31,8 @@ export default function Home() {
             <img
               src="/images/logo.png"
               alt="SIXTH SENSE LEGAL"
-              className="w-auto h-80 md:h-[500px]"
+              className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl h-48 sm:h-64 md:h-80 lg:h-[500px] p-2"
+              style={{ objectFit: "contain" }}
               onError={(e) => {
                 console.error("Logo failed to load")
                 e.currentTarget.src =
