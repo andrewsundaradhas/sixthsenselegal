@@ -34,6 +34,7 @@ const GooeyNav = ({
     const filterRef = useRef<HTMLSpanElement>(null);
     const textRef = useRef<HTMLSpanElement>(null);
     const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
+    const [isOpen, setIsOpen] = useState(false);
 
     const noise = (n = 1) => n / 2 - Math.random() * n;
 
@@ -113,10 +114,14 @@ const GooeyNav = ({
 
     const handleClick = (e: React.MouseEvent<HTMLLIElement>, index: number) => {
         const liEl = e.currentTarget;
-        if (activeIndex === index) return;
+        if (activeIndex === index) {
+            setIsOpen(false);
+            return;
+        }
 
         setActiveIndex(index);
         updateEffectPosition(liEl);
+        setIsOpen(false);
 
         if (filterRef.current) {
             const particles = filterRef.current.querySelectorAll('.particle');
@@ -147,6 +152,15 @@ const GooeyNav = ({
 
     useEffect(() => {
         if (!navRef.current || !containerRef.current) return;
+
+        // Add specific handling for mobile open/close to recalculate positions
+        if (isOpen) {
+            setTimeout(() => {
+                const activeLi = navRef.current?.querySelectorAll('li')[activeIndex];
+                if (activeLi) updateEffectPosition(activeLi as HTMLElement);
+            }, 300); // Wait for transition
+        }
+
         const activeLi = navRef.current.querySelectorAll('li')[activeIndex];
         if (activeLi) {
             updateEffectPosition(activeLi as HTMLElement);
@@ -162,42 +176,64 @@ const GooeyNav = ({
 
         resizeObserver.observe(containerRef.current);
         return () => resizeObserver.disconnect();
-    }, [activeIndex]);
+    }, [activeIndex, isOpen]);
 
     return (
-        <div className="gooey-nav-container" ref={containerRef}>
-            <div className="gooey-nav-logo">
-                <a href="/">
-                    <img
-                        src="/images/logo.png"
-                        alt="SIXTH SENSE LEGAL"
-                        className="w-auto mx-auto"
-                        onError={(e) => {
-                            console.error("Logo failed to load")
-                            e.currentTarget.src =
-                                "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-05-18%20152522-jjpwpyWNl7X2ScR1n6iOQeSJLteReI.png"
-                        }}
-                    />
-                    <p className="font-panara text-xs text-white mt-1.5 text-center px-2">Making Law Make Sense</p>
-                </a>
+        <>
+            <button
+                className="lg:hidden fixed top-4 left-4 z-[60] p-2 bg-black/50 backdrop-blur-md border border-red-600/30 rounded-md text-white"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label="Toggle Menu"
+            >
+                {isOpen ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 18 18" /></svg>
+                ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></svg>
+                )}
+            </button>
+            <div
+                className={`gooey-nav-container ${isOpen ? 'mobile-open' : ''}`}
+                ref={containerRef}
+            >
+                <div className="gooey-nav-logo">
+                    <a href="/">
+                        <img
+                            src="/images/logo.png"
+                            alt="SIXTH SENSE LEGAL"
+                            className="w-auto mx-auto"
+                            onError={(e) => {
+                                console.error("Logo failed to load")
+                                e.currentTarget.src =
+                                    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-05-18%20152522-jjpwpyWNl7X2ScR1n6iOQeSJLteReI.png"
+                            }}
+                        />
+                        <p className="font-panara text-xs text-white mt-1.5 text-center px-2">Making Law Make Sense</p>
+                    </a>
+                </div>
+                <nav>
+                    <ul ref={navRef}>
+                        {items.map((item, index) => (
+                            <li key={index} className={activeIndex === index ? 'active' : ''} onClick={e => handleClick(e, index)}>
+                                <a href={item.href} onKeyDown={e => handleKeyDown(e, index)}>
+                                    {item.label}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+                <div className="gooey-nav-footer">
+                    <p className="text-xs text-muted-foreground text-center px-4">© {new Date().getFullYear()} SIXTH SENSE LEGAL</p>
+                </div>
+                <span className="effect filter" ref={filterRef} />
+                <span className="effect text" ref={textRef} />
             </div>
-            <nav>
-                <ul ref={navRef}>
-                    {items.map((item, index) => (
-                        <li key={index} className={activeIndex === index ? 'active' : ''} onClick={e => handleClick(e, index)}>
-                            <a href={item.href} onKeyDown={e => handleKeyDown(e, index)}>
-                                {item.label}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
-            <div className="gooey-nav-footer">
-                <p className="text-xs text-muted-foreground text-center px-4">© {new Date().getFullYear()} SIXTH SENSE LEGAL</p>
-            </div>
-            <span className="effect filter" ref={filterRef} />
-            <span className="effect text" ref={textRef} />
-        </div>
+            {isOpen && (
+                <div
+                    className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[40] lg:hidden"
+                    onClick={() => setIsOpen(false)}
+                />
+            )}
+        </>
     );
 };
 
