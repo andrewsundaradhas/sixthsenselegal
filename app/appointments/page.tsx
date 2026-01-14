@@ -144,11 +144,16 @@ export default function AppointmentsPage() {
                     <MapPin className="h-5 w-5 text-red-600 mt-0.5" />
                     <div>
                       <h3 className="font-panara font-medium text-white">Address</h3>
-                      <p className="font-panara text-muted-foreground">
+                      <a
+                        href="https://www.google.com/maps/search/?api=1&query=Prince+Towers,+College+Road,+Nungambakkam,+Chennai"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-panara text-muted-foreground hover:text-red-600 transition-colors duration-200 cursor-pointer underline decoration-transparent hover:decoration-red-600"
+                      >
                         Prince Towers, College Road,
                         <br />
                         Nungambakkam, Chennai
-                      </p>
+                      </a>
                     </div>
                   </div>
 

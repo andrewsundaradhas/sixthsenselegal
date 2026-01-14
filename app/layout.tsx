@@ -1,13 +1,14 @@
+'use client'
+
 import type React from "react"
-import type { Metadata } from "next"
 import { Montserrat } from "next/font/google"
 import "./globals.css"
-import SideNavigation from "@/components/side-navigation"
+import GooeyNav from "@/components/GooeyNav"
 import { ThemeProvider } from "@/components/theme-provider"
-import { useEffect, useState } from "react"
-import DisclaimerPopup from "@/components/DisclaimerPopup"
-import { useRouter } from "next/navigation"
 import ClientDisclaimerGuard from "@/components/ClientDisclaimerGuard"
+import IntroScreen from "@/components/IntroScreen"
+import { useActiveRoute } from "@/hooks/useActiveRoute"
+import { useState, useEffect } from "react"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -15,10 +16,56 @@ const montserrat = Montserrat({
   display: "swap",
 })
 
-export const metadata: Metadata = {
-  title: "SIXTH SENSE LEGAL",
-  description: "Making Law Make Sense",
-  generator: 'v0.dev'
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Appointments", href: "/appointments" },
+  { label: "Opportunities", href: "/opportunities" },
+]
+
+function LayoutContent({ children }: { children: React.ReactNode }) {
+  const activeIndex = useActiveRoute(navItems)
+  const [showIntro, setShowIntro] = useState(false)
+  const [introComplete, setIntroComplete] = useState(false)
+
+  useEffect(() => {
+    // Check if user has visited before
+    const hasVisited = localStorage.getItem('sixthsense-visited')
+    if (!hasVisited) {
+      setShowIntro(true)
+    } else {
+      setIntroComplete(true)
+    }
+  }, [])
+
+  const handleIntroComplete = () => {
+    localStorage.setItem('sixthsense-visited', 'true')
+    setIntroComplete(true)
+  }
+
+  return (
+    <>
+      {showIntro && !introComplete && <IntroScreen onComplete={handleIntroComplete} />}
+      {introComplete && (
+        <>
+          <ClientDisclaimerGuard />
+          <div className="min-h-screen flex" style={{ opacity: 1, transition: 'opacity 0.5s' }}>
+            <GooeyNav
+              items={navItems}
+              particleCount={15}
+              particleDistances={[90, 10]}
+              particleR={100}
+              initialActiveIndex={activeIndex}
+              animationTime={600}
+              timeVariance={300}
+              colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+            />
+            <main className="flex-1 ml-[250px] lg:ml-[250px]">{children}</main>
+          </div>
+        </>
+      )}
+    </>
+  )
 }
 
 export default function RootLayout({
@@ -35,14 +82,12 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/day-dream" />
+        <title>SIXTH SENSE LEGAL</title>
+        <meta name="description" content="Making Law Make Sense" />
       </head>
       <body className={`${montserrat.variable} font-sans bg-black text-white`}>
-        <ClientDisclaimerGuard />
         <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" enableSystem={false}>
-          <div className="flex min-h-screen">
-            <SideNavigation />
-            <main className="flex-1 overflow-x-hidden">{children}</main>
-          </div>
+          <LayoutContent>{children}</LayoutContent>
         </ThemeProvider>
       </body>
     </html>
