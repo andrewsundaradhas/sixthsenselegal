@@ -42,16 +42,16 @@ export default function Timeline({ items, className }: TimelineProps) {
       <div className="absolute left-[120px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-red-600 to-red-800 hidden md:block" />
 
       {/* Horizontal line for mobile */}
-      <div className="absolute left-0 right-0 top-[60px] h-0.5 bg-gradient-to-r from-red-600 to-red-800 md:hidden" />
+      <div className="absolute left-0 right-0 top-[60px] h-0.5 bg-gradient-to-r from-red-600 to-red-800 md:hidden -z-10" />
 
-      <div className="md:space-y-16">
+      <div className="md:space-y-16 space-y-8 sm:space-y-12">
         {items.map((item, index) => (
           <motion.div
             key={index}
             className={cn(
               "relative",
               "md:pl-[160px]", // Desktop layout
-              "pl-0 pt-[80px] mb-12 md:mb-0", // Mobile layout
+              "pl-0 pt-[70px] sm:pt-[80px] mb-8 sm:mb-12 md:mb-0", // Mobile layout
               index % 2 === 0 ? "md:even:pl-[160px]" : "md:odd:pl-[160px]",
             )}
             initial={{ opacity: 0, y: 20 }}
@@ -62,7 +62,7 @@ export default function Timeline({ items, className }: TimelineProps) {
             <div className="absolute left-[108px] top-0 w-6 h-6 rounded-full bg-red-600 border-2 border-black z-10 shadow-[0_0_10px_rgba(220,38,38,0.5)] hidden md:block" />
 
             {/* Mobile dot */}
-            <div className="absolute left-0 top-[60px] w-6 h-6 rounded-full bg-red-600 border-2 border-black z-10 shadow-[0_0_10px_rgba(220,38,38,0.5)] md:hidden" />
+            <div className="absolute left-0 top-[60px] w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-red-600 border-2 border-black z-10 shadow-[0_0_10px_rgba(220,38,38,0.5)] md:hidden transform -translate-x-1/2" />
 
             {/* Year - Desktop */}
             <div className="absolute left-0 top-0 font-panara font-bold text-red-600 text-2xl hidden md:block">
@@ -70,26 +70,28 @@ export default function Timeline({ items, className }: TimelineProps) {
             </div>
 
             {/* Year - Mobile */}
-            <div className="absolute left-10 top-[60px] transform -translate-y-1/2 font-panara font-bold text-red-600 text-2xl md:hidden z-20 bg-black px-2 py-0.5 rounded shadow">
+            <div className="absolute left-8 sm:left-10 top-[60px] transform -translate-y-1/2 font-panara font-bold text-red-600 text-xl sm:text-2xl md:hidden z-20 bg-black px-2 py-0.5 rounded shadow">
               {item.year}
             </div>
 
             {/* Content card - Desktop */}
-            <div className="hidden md:block bg-black/80 backdrop-blur-sm border border-red-600/30 rounded-lg p-4 shadow-[0_4px_20px_rgba(220,38,38,0.2)]">
+            <div className="hidden md:block bg-black/80 backdrop-blur-sm border border-red-600/30 rounded-lg p-4 sm:p-5 shadow-[0_4px_20px_rgba(220,38,38,0.2)]">
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 bg-black/50 rounded-full">{getIcon(item.icon)}</div>
-                <h3 className="font-panara font-bold text-white text-xl">{item.title}</h3>
+                <h3 className="font-panara font-bold text-white text-lg sm:text-xl">{item.title}</h3>
               </div>
-              <p className="font-panara text-muted-foreground">{item.description}</p>
+              <p className="font-panara text-sm sm:text-base text-muted-foreground leading-relaxed">{item.description}</p>
             </div>
 
             {/* Content card - Mobile */}
             <div className="md:hidden bg-black/80 backdrop-blur-sm border border-red-600/30 rounded-lg p-4 shadow-[0_4px_20px_rgba(220,38,38,0.2)]">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-black/50 rounded-full">{getIcon(item.icon)}</div>
-                <h3 className="font-panara font-bold text-white text-xl">{item.title}</h3>
+              <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                <div className="p-1.5 sm:p-2 bg-black/50 rounded-full flex-shrink-0">
+                  {getIcon(item.icon)}
+                </div>
+                <h3 className="font-panara font-bold text-white text-base sm:text-lg sm:text-xl leading-tight">{item.title}</h3>
               </div>
-              <p className="font-panara text-muted-foreground">{item.description}</p>
+              <p className="font-panara text-xs sm:text-sm text-muted-foreground leading-relaxed">{item.description}</p>
             </div>
           </motion.div>
         ))}

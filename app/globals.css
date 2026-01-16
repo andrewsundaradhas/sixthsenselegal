@@ -143,6 +143,15 @@
 
 @media (max-width: 1023px) {
   .section-spacing {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .section-spacing {
     padding-top: 60px;
     padding-bottom: 60px;
     padding-left: 24px;
@@ -249,7 +258,7 @@
 @media (max-width: 767px) {
   .expertise-container {
     overflow: visible;
-    min-height: 500px;
+    min-height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -259,5 +268,45 @@
     overflow: visible;
     width: 100%;
     max-width: 100vw;
+  }
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+  /* Better touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  /* Improved text readability */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Prevent horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  /* Better form inputs on mobile */
+  input[type="date"],
+  input[type="email"],
+  input[type="text"],
+  input[type="tel"],
+  select,
+  textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+  .section-spacing {
+    padding-top: 32px;
+    padding-bottom: 32px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
