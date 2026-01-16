@@ -60,7 +60,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
               timeVariance={300}
               colors={[1, 2, 3, 1, 2, 3, 1, 4]}
             />
-            <main className="flex-1 ml-0 lg:ml-[250px] pt-12 sm:pt-16 lg:pt-0">{children}</main>
+            <main className="flex-1 ml-0 lg:ml-[250px] pt-16 sm:pt-20 lg:pt-0 overflow-x-hidden">{children}</main>
           </div>
         </>
       )}

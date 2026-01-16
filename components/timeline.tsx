@@ -84,14 +84,14 @@ export default function Timeline({ items, className }: TimelineProps) {
             </div>
 
             {/* Content card - Mobile */}
-            <div className="md:hidden bg-black/80 backdrop-blur-sm border border-red-600/30 rounded-lg p-4 shadow-[0_4px_20px_rgba(220,38,38,0.2)]">
+            <div className="md:hidden bg-black/80 backdrop-blur-sm border border-red-600/30 rounded-lg p-4 sm:p-5 shadow-[0_4px_20px_rgba(220,38,38,0.2)] ml-0 overflow-visible">
               <div className="flex items-center gap-2 sm:gap-3 mb-2">
                 <div className="p-1.5 sm:p-2 bg-black/50 rounded-full flex-shrink-0">
                   {getIcon(item.icon)}
                 </div>
-                <h3 className="font-panara font-bold text-white text-base sm:text-lg sm:text-xl leading-tight">{item.title}</h3>
+                <h3 className="font-panara font-bold text-white text-base sm:text-lg sm:text-xl leading-tight flex-1">{item.title}</h3>
               </div>
-              <p className="font-panara text-xs sm:text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+              <p className="font-panara text-xs sm:text-sm text-muted-foreground leading-relaxed break-words overflow-visible">{item.description}</p>
             </div>
           </motion.div>
         ))}

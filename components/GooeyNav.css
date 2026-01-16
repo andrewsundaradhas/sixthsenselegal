@@ -175,6 +175,13 @@
   background: black;
 }
 
+/* Ensure effect doesn't interfere on mobile when closed */
+@media (max-width: 1023px) {
+  .gooey-nav-container:not(.mobile-open) .effect.filter::before {
+    display: none;
+  }
+}
+
 .gooey-nav-container .effect.filter::after {
   content: '';
   position: absolute;
@@ -284,11 +291,13 @@
     max-width: 85vw;
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
   }
 
   .gooey-nav-container.mobile-open {
     transform: translateX(0);
     box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
   }
 
   .gooey-nav-container nav ul li a {
@@ -306,6 +315,18 @@
   
   .gooey-nav-footer {
     padding: 0.75rem 1rem;
+  }
+  
+  /* Hide effect elements on mobile when menu is closed */
+  .gooey-nav-container:not(.mobile-open) .effect {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+  
+  /* Ensure effect filter doesn't create black overlay on mobile */
+  .gooey-nav-container:not(.mobile-open) .effect.filter::before {
+    display: none !important;
   }
 }
 
