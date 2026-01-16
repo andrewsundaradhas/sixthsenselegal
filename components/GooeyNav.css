@@ -280,7 +280,8 @@
 /* Mobile responsive - slide out menu */
 @media (max-width: 1023px) {
   .gooey-nav-container {
-    width: 250px;
+    width: 280px;
+    max-width: 85vw;
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -291,7 +292,32 @@
   }
 
   .gooey-nav-container nav ul li a {
-    padding: 0.8em 1em;
-    font-size: 1rem;
+    padding: 0.9em 1.2em;
+    font-size: 0.95rem;
+  }
+  
+  .gooey-nav-logo {
+    padding: 1.25rem 1rem 0.75rem;
+  }
+  
+  .gooey-nav-logo img {
+    height: 100px !important;
+  }
+  
+  .gooey-nav-footer {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 375px) {
+  .gooey-nav-container {
+    width: 260px;
+    max-width: 90vw;
+  }
+  
+  .gooey-nav-container nav ul li a {
+    padding: 0.85em 1em;
+    font-size: 0.9rem;
   }
 }

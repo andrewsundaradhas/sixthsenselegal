@@ -181,7 +181,7 @@ const GooeyNav = ({
     return (
         <>
             <button
-                className="lg:hidden fixed top-4 left-4 z-[60] p-2 bg-black/50 backdrop-blur-md border border-red-600/30 rounded-md text-white"
+                className="lg:hidden fixed top-4 left-4 z-[60] p-2.5 sm:p-3 bg-black/80 backdrop-blur-md border border-red-600/30 rounded-md text-white hover:bg-black/90 hover:border-red-600/50 transition-all duration-200 shadow-lg min-w-[44px] min-h-[44px] flex items-center justify-center"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Toggle Menu"
             >

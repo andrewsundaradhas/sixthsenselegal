@@ -45,12 +45,12 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen">
       {/* About Us Header */}
-      <section className="py-16 sm:py-20 px-4 md:px-8 lg:px-12 section-spacing">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-12 section-spacing">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <h1 className="font-daydream text-white text-3xl md:text-4xl lg:text-5xl mb-4 text-center">ABOUT US</h1>
+          <h1 className="font-daydream text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 text-center px-4">ABOUT US</h1>
 
-          <div className="max-w-4xl mx-auto">
-            <p className="font-panara text-lg text-muted-foreground mb-12 text-center">
+          <div className="max-w-4xl mx-auto px-4">
+            <p className="font-panara text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 text-center leading-relaxed">
               Since 2015, SIXTH SENSE LEGAL has been providing exceptional legal services with a focus on integrity,
               expertise, and client satisfaction. Our team of experienced professionals is dedicated to delivering the
               highest quality legal representation across a wide range of practice areas.
@@ -60,16 +60,16 @@ export default function AboutPage() {
       </section>
 
       {/* Expertise Visualization - mobile only, before timeline */}
-      <section className="block md:hidden py-8 sm:py-10 px-0 section-spacing">
+      <section className="block md:hidden py-8 sm:py-12 px-4 sm:px-6 section-spacing">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <h2 className="font-panara font-bold text-white text-2xl mb-4 sm:mb-6 text-center">Our Expertise</h2>
-          <p className="font-panara text-center text-muted-foreground mb-6 max-w-3xl mx-auto text-sm sm:text-base px-4">
+          <h2 className="font-panara font-bold text-white text-xl sm:text-2xl mb-4 sm:mb-6 text-center px-2">Our Expertise</h2>
+          <p className="font-panara text-center text-muted-foreground mb-6 sm:mb-8 max-w-3xl mx-auto text-sm sm:text-base px-2 leading-relaxed">
             Click on the central bubble to explore our areas of expertise. Each practice area represents our specialized
             knowledge and experience in providing exceptional legal services.
           </p>
-          <div className="relative w-full overflow-hidden">
-            <div className="flex justify-center items-center min-h-[400px] sm:min-h-[500px]">
-              <div className="relative w-full max-w-[800px] mx-auto">
+          <div className="relative w-full overflow-hidden px-2">
+            <div className="flex justify-center items-center min-h-[350px] xs:min-h-[400px] sm:min-h-[450px]">
+              <div className="relative w-full max-w-full mx-auto">
                 <ExpertiseVisualization />
               </div>
             </div>
@@ -78,9 +78,9 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline Section - mobile below expertise, desktop as usual */}
-      <section className="py-16 sm:py-20 px-4 md:px-8 lg:px-12 section-spacing bg-gradient-to-b from-black to-[#0A0A0A]">
-        <h2 className="font-panara font-bold text-white text-2xl md:text-3xl mb-12 sm:mb-16 text-center">Our Journey</h2>
-        <div className="max-w-5xl mx-auto">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-12 section-spacing bg-gradient-to-b from-black to-[#0A0A0A]">
+        <h2 className="font-panara font-bold text-white text-xl sm:text-2xl md:text-3xl mb-8 sm:mb-12 md:mb-16 text-center px-4">Our Journey</h2>
+        <div className="max-w-5xl mx-auto px-2 sm:px-4">
           <Timeline items={timelineItems} />
         </div>
       </section>
@@ -104,29 +104,29 @@ export default function AboutPage() {
       </section>
 
       {/* Our Approach Section */}
-      <section className="py-16 sm:py-20 px-4 md:px-8 lg:px-12 section-spacing bg-gradient-to-b from-black to-[#0A0A0A]">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-12 section-spacing bg-gradient-to-b from-black to-[#0A0A0A]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="font-panara font-bold text-white text-2xl md:text-3xl mb-6 sm:mb-8 text-center">Our Approach</h2>
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="font-panara text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+          <h2 className="font-panara font-bold text-white text-xl sm:text-2xl md:text-3xl mb-6 sm:mb-8 text-center px-4">Our Approach</h2>
+          <div className="max-w-4xl mx-auto text-center px-4">
+            <p className="font-panara text-sm sm:text-base md:text-lg text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
               At Sixth Sense Legal, our approach is rooted in integrity, expertise, and a deep commitment to our clients. We believe in clear communication, thorough research, and strategic advocacy tailored to each unique case. Our team collaborates closely to ensure every client receives personalized attention and the highest standard of legal service.
             </p>
-            <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 font-panara text-sm sm:text-base text-white">
-              <li className="bg-black/60 rounded-xl p-4 sm:p-6 border border-red-600/30 shadow-sm">
-                <span className="block text-red-600 font-semibold mb-2">Client-Centric</span>
-                We prioritize our clients' needs, providing transparent advice and regular updates throughout every stage of the legal process.
+            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 font-panara text-sm sm:text-base text-white">
+              <li className="bg-black/60 rounded-xl p-4 sm:p-5 md:p-6 border border-red-600/30 shadow-sm hover:border-red-600/50 transition-colors">
+                <span className="block text-red-600 font-semibold mb-2 sm:mb-3 text-base sm:text-lg">Client-Centric</span>
+                <span className="text-muted-foreground">We prioritize our clients' needs, providing transparent advice and regular updates throughout every stage of the legal process.</span>
               </li>
-              <li className="bg-black/60 rounded-xl p-4 sm:p-6 border border-red-600/30 shadow-sm">
-                <span className="block text-red-600 font-semibold mb-2">Collaborative</span>
-                Our lawyers work as a team, leveraging diverse expertise to develop creative, effective solutions for complex legal challenges.
+              <li className="bg-black/60 rounded-xl p-4 sm:p-5 md:p-6 border border-red-600/30 shadow-sm hover:border-red-600/50 transition-colors">
+                <span className="block text-red-600 font-semibold mb-2 sm:mb-3 text-base sm:text-lg">Collaborative</span>
+                <span className="text-muted-foreground">Our lawyers work as a team, leveraging diverse expertise to develop creative, effective solutions for complex legal challenges.</span>
               </li>
-              <li className="bg-black/60 rounded-xl p-4 sm:p-6 border border-red-600/30 shadow-sm">
-                <span className="block text-red-600 font-semibold mb-2">Ethical & Strategic</span>
-                We uphold the highest ethical standards and pursue every matter with diligence, discretion, and a focus on long-term results.
+              <li className="bg-black/60 rounded-xl p-4 sm:p-5 md:p-6 border border-red-600/30 shadow-sm hover:border-red-600/50 transition-colors sm:col-span-2 md:col-span-1">
+                <span className="block text-red-600 font-semibold mb-2 sm:mb-3 text-base sm:text-lg">Ethical & Strategic</span>
+                <span className="text-muted-foreground">We uphold the highest ethical standards and pursue every matter with diligence, discretion, and a focus on long-term results.</span>
               </li>
             </ul>
           </div>
