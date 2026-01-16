@@ -21,6 +21,7 @@ const navItems = [
   { label: "About Us", href: "/about" },
   { label: "Appointments", href: "/appointments" },
   { label: "Opportunities", href: "/opportunities" },
+  { label: "Contact Us", href: "/contact" },
 ]
 
 function LayoutContent({ children }: { children: React.ReactNode }) {
