@@ -78,9 +78,9 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline Section - mobile below expertise, desktop as usual */}
-      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-12 section-spacing bg-gradient-to-b from-black to-[#0A0A0A]">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 lg:px-12 section-spacing bg-gradient-to-b from-black to-[#0A0A0A] overflow-visible">
         <h2 className="font-panara font-bold text-white text-xl sm:text-2xl md:text-3xl mb-8 sm:mb-12 md:mb-16 text-center px-4">Our Journey</h2>
-        <div className="max-w-5xl mx-auto px-2 sm:px-4">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 overflow-visible">
           <Timeline items={timelineItems} />
         </div>
       </section>

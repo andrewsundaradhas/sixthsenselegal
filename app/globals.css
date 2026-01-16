@@ -299,6 +299,35 @@
   textarea {
     font-size: 16px; /* Prevents zoom on iOS */
   }
+  
+  /* Ensure labels and text are not clipped */
+  label {
+    display: block;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Prevent card content from being clipped */
+  [class*="Card"] {
+    overflow: visible !important;
+  }
+  
+  /* Ensure form fields don't get clipped */
+  .form-field-focus {
+    width: 100%;
+    overflow: visible;
+  }
+  
+  /* Ensure navigation doesn't create black overlay when closed */
+  .gooey-nav-container:not(.mobile-open) {
+    visibility: hidden;
+  }
+  
+  /* Prevent any black overlays from navigation effects */
+  .gooey-nav-container:not(.mobile-open) * {
+    pointer-events: none;
+  }
 }
 
 /* Extra small devices */
