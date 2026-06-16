@@ -1,0 +1,74 @@
+/* ============================================================
+   Sixth Sense Legal v2 — cinematic single-page redesign
+   Ported from the Claude Design handoff (Ciridae / CAH / Shelby / Iad-lab).
+   Holds the bits inline styles can't express: ::selection, placeholders,
+   keyframes, and :hover / :focus states.
+   ============================================================ */
+
+.ssl-root ::selection { background: #e50914; color: #fff; }
+.ssl-root input::placeholder,
+.ssl-root textarea::placeholder { color: rgba(255, 255, 255, 0.28); }
+
+@keyframes ssl-scrolldot {
+  0%   { transform: translateY(0);    opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(24px); opacity: 0; }
+}
+.ssl-scrolldot { animation: ssl-scrolldot 1.8s ease-in-out infinite; }
+
+/* ---- buttons / pills ---- */
+.ssl-btn-invert { transition: all .3s; }
+.ssl-btn-invert:hover { background: transparent !important; color: #fff !important; }
+
+.ssl-btn-ghost { transition: all .3s; }
+.ssl-btn-ghost:hover {
+  border-color: #fff !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.ssl-pill-light { transition: all .3s; }
+.ssl-pill-light:hover {
+  background: #fff !important;
+  color: #000 !important;
+  border-color: #fff !important;
+}
+
+/* ---- nav / menu / footer / contact links ---- */
+.ssl-menu-link { transition: color .25s; }
+.ssl-menu-link:hover { color: #e50914 !important; }
+
+.ssl-link-soft { transition: color .25s; }
+.ssl-link-soft:hover { color: #fff !important; }
+
+/* ---- CAH practice cards ----
+   Base rotation rides on a CSS var so :hover can override the transform
+   (inline transform would otherwise win on specificity). */
+.ssl-card {
+  transform: rotate(var(--rot, 0deg));
+  transition: transform .55s cubic-bezier(.16, 1, .3, 1);
+}
+.ssl-card:hover {
+  transform: rotate(0deg) translateY(-12px) scale(1.04);
+}
+
+/* ---- approach cards ---- */
+.ssl-approach {
+  transition: border-color .35s, transform .35s cubic-bezier(.16, 1, .3, 1);
+}
+.ssl-approach:hover {
+  border-color: rgba(229, 9, 20, 0.55) !important;
+  transform: perspective(900px) rotateX(5deg) translateY(-8px);
+}
+
+/* ---- job cards ---- */
+.ssl-job {
+  transition: border-color .35s, transform .35s cubic-bezier(.16, 1, .3, 1);
+}
+.ssl-job:hover {
+  border-color: rgba(229, 9, 20, 0.5) !important;
+  transform: translateY(-6px);
+}
+
+/* ---- form fields ---- */
+.ssl-input { transition: border-color .25s; }
+.ssl-input:focus { border-color: #e50914 !important; }

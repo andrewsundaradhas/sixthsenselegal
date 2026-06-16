@@ -1,14 +1,8 @@
-'use client'
-
 import type React from "react"
+import type { Metadata } from "next"
 import { Montserrat } from "next/font/google"
 import "./globals.css"
-import GooeyNav from "@/components/GooeyNav"
 import { ThemeProvider } from "@/components/theme-provider"
-import ClientDisclaimerGuard from "@/components/ClientDisclaimerGuard"
-import IntroScreen from "@/components/IntroScreen"
-import { useActiveRoute } from "@/hooks/useActiveRoute"
-import { useState, useEffect } from "react"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -16,57 +10,9 @@ const montserrat = Montserrat({
   display: "swap",
 })
 
-const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Appointments", href: "/appointments" },
-  { label: "Opportunities", href: "/opportunities" },
-  { label: "Contact Us", href: "/contact" },
-]
-
-function LayoutContent({ children }: { children: React.ReactNode }) {
-  const activeIndex = useActiveRoute(navItems)
-  const [showIntro, setShowIntro] = useState(false)
-  const [introComplete, setIntroComplete] = useState(false)
-
-  useEffect(() => {
-    // Check if user has visited before
-    const hasVisited = localStorage.getItem('sixthsense-visited')
-    if (!hasVisited) {
-      setShowIntro(true)
-    } else {
-      setIntroComplete(true)
-    }
-  }, [])
-
-  const handleIntroComplete = () => {
-    localStorage.setItem('sixthsense-visited', 'true')
-    setIntroComplete(true)
-  }
-
-  return (
-    <>
-      {showIntro && !introComplete && <IntroScreen onComplete={handleIntroComplete} />}
-      {introComplete && (
-        <>
-          <ClientDisclaimerGuard />
-          <div className="min-h-screen flex" style={{ opacity: 1, transition: 'opacity 0.5s' }}>
-            <GooeyNav
-              items={navItems}
-              particleCount={15}
-              particleDistances={[90, 10]}
-              particleR={100}
-              initialActiveIndex={activeIndex}
-              animationTime={600}
-              timeVariance={300}
-              colors={[1, 2, 3, 1, 2, 3, 1, 4]}
-            />
-            <main className="flex-1 ml-0 lg:ml-[250px] pt-16 sm:pt-20 lg:pt-0 overflow-x-hidden">{children}</main>
-          </div>
-        </>
-      )}
-    </>
-  )
+export const metadata: Metadata = {
+  title: "SIXTH SENSE LEGAL",
+  description: "Making Law Make Sense",
 }
 
 export default function RootLayout({
@@ -82,13 +28,16 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/day-dream" />
-        <title>SIXTH SENSE LEGAL</title>
-        <meta name="description" content="Making Law Make Sense" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body className={`${montserrat.variable} font-sans bg-black text-white`}>
+      <body className={`${montserrat.variable} font-sans bg-black text-white antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" enableSystem={false}>
-          <LayoutContent>{children}</LayoutContent>
+          {children}
         </ThemeProvider>
       </body>
     </html>
